@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int MAX_N = 1000000;  
+    int n;
+
+    while (cin >> n) {
+        int* dp = new int[n + 1];  
+        dp[1] = 0;  
+
+        for (int i = 2; i <= n; ++i) {
+            int min_ops = dp[i - 1];  
+            if (i % 2 == 0) {
+                if (dp[i / 2] < min_ops)
+                    min_ops = dp[i / 2];
+            }
+
+            if (i % 3 == 0) {
+                if (dp[i / 3] < min_ops)
+                    min_ops = dp[i / 3];
+            }
+
+            dp[i] = min_ops + 1;
+        }
+
+        cout << dp[n] << endl;
+
+        delete[] dp; 
+    }
+
+    return 0;
+}
